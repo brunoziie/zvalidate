@@ -98,6 +98,14 @@ Define que o campo deve ter o valor igual a um outro campo definido
 <input type="text" data-rule="equals:password" data-message="Os campos não conferem" id="conf_password">
 ```
 
+#####radio:name
+Define que campo do tipo radio deve ser marcado
+```html
+<input type="radio" name="myRadioInput" value="25" data-rule="radio:myRadioInput" data-message="Selecione uma opçao">
+<input type="radio" name="myRadioInput" value="50" />
+<input type="radio" name="myRadioInput" value="100" />
+```
+
 ###Criando regras personalizadas
 Se as regras padrões não forem suficientes para a sua aplicação é possível criar regras de validação personalizadas. Para adicionar uma nova regra use o método `zValidate.extensions`.
 

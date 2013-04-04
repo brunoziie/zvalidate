@@ -141,6 +141,28 @@
 				} else {
 					return false;
 				}
+			},
+
+			/**
+			 * Define que o campo do tipo radio deve ser selecionado
+			 * @param  {String}  string Valor do input
+			 * @param  {String}  name 	Name usado para os radios
+			 * @return {Boolean}        Verdadeiro caso um item esteja selecionado
+			 */
+			radio : function (string, name) {
+				var input = global.document.getElementsByName(name),
+					len = input.length,
+					i;
+
+				if (len > 0) {
+					for (i = 0; i < len; i += 1) {
+						if (input[i].checked) {
+							return true;
+						}
+					}
+				}
+ 
+				return false;
 			}
 		},
 
@@ -199,14 +221,14 @@
 
 				jQ('.z_tooltip').remove();
 
-				for (i = 0; i < len; i++) {
+				for (i = 0; i < len; i += 1) {
 					current = jQ(inputList[i]);
 
 					if (typeof current.data('rule') !== 'undefined') {
 						rulesList = current.data('rule').split('|');
 						rulesListLen = rulesList.length;
 
-						for (x = 0; x < rulesListLen; x++) {
+						for (x = 0; x < rulesListLen; x += 1) {
 							currentRule = this.parseArg(rulesList[x]);
 							if (typeof rules[currentRule[0]] !== 'undefined') {
 								args = currentRule[1] || '';
