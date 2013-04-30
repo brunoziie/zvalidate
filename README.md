@@ -106,6 +106,20 @@ Define que campo do tipo radio deve ser marcado
 <input type="radio" name="myRadioInput" value="100" />
 ```
 
+#####diff:arg
+Define que campo deve conter um valor diferente do argumento (Indicado para selects)
+```html
+<select name="exemplo9" id="exemplo9" data-rule="diff:0" data-message="Value deve ser diferente de 0">
+	<option value="0">Selecione algo</option>
+	<option value="1">Opçao 1</option>
+	<option value="2">Opçao 2</option>
+	<option value="3">Opçao 3</option>
+	<option value="4">Opçao 4</option>
+	<option value="5">Opçao 5</option>
+</select>
+```
+
+
 ###Criando regras personalizadas
 Se as regras padrões não forem suficientes para a sua aplicação é possível criar regras de validação personalizadas. Para adicionar uma nova regra use o método `zValidate.extensions`.
 
