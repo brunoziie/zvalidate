@@ -161,7 +161,7 @@
                         }
                     }
                 }
- 
+
                 return false;
             },
 
@@ -172,7 +172,6 @@
              * @return {Boolean}        Verdadeiro caso o valor e argumento informado sejam diferentes
              */
             diff: function (string, arg) {
-                console.log(arguments);
                 return (string !== arg) ? true : false;
             }
         },
@@ -190,24 +189,27 @@
 
             /**
              * Gera um tooltip com a mensagem de erro para um campo
+             * @param  {Object} form  Formulário que está sendo validado   
              * @param  {Object} input Campo que receberá o tooltip
              * @return {void}
              */
-            generateTooltip : function (input) {
+            generateTooltip : function (form, input) {
                 var currentInput = jQ(input),
                     message = currentInput.data('message') || '',
                     className = 'z_tooltip',
                     inputId = currentInput.attr('id'),
                     offsets = currentInput.offset(),
+                    formOffsets = jQ(form).offset(),
+                    finalPosition = [offsets.left - formOffsets.left, offsets.top - formOffsets.top],
                     id = className + '_' + currentInput.attr('id'),
-                    css = 'top:' + (offsets.top - 35) + 'px;left:' + (offsets.left + currentInput.width() - 40) + 'px;position:absolute',
+                    css = 'top:' + (finalPosition[1] - 35) + 'px;left:' + (finalPosition[0] + currentInput.width() - 40) + 'px;position:absolute',
                     html = [
                         '<div id="' + id + '" class="' + className + '" style="' + css + '">',
                         '<span class="z_tooltip_inner">' + message + '</span>',
                         '<span class="z_tooltip_arrow"></span></div>'
                     ].join('');
 
-                jQ('body').append(html);
+                jQ(form).css('position', 'relative').append(html);
                 jQ(input).focus(function () {
                     jQ('#' + id).fadeOut(500);
                 });
@@ -230,7 +232,7 @@
                     x,
                     output = true;
 
-                jQ('.z_tooltip').remove();
+                jQ(form).find('.z_tooltip').remove();
 
                 for (i = 0; i < len; i += 1) {
                     current = jQ(inputList[i]);
@@ -244,7 +246,7 @@
                             if (typeof rules[currentRule[0]] !== 'undefined') {
                                 args = currentRule[1] || '';
                                 if (!rules[currentRule[0]](current.val(), args)) {
-                                    this.generateTooltip(current);
+                                    this.generateTooltip(form, current);
                                     output = false;
                                 }
                             }
