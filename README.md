@@ -134,12 +134,42 @@ define um argumento, caso faça-se necessário.
 
 **OBS: As funções adicionadas devem ter um retorno booleano.**
 
+
+### Definindo um callback para a validação
+Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
+dependa do resultado da validação (Ex: Consulta AJAX).
+**OBS: Caso não seja definido um callback, o comportamento padrão do formulário será executado**
+
+```javascript
+zValidate.setCallback('#myForm', function (result, event, form) {
+    if(result === true){
+        alert('Tudo ok! :)');
+    } else {
+        alert('Algo errado não está certo! :(');
+    }
+
+    event.preventDefault();
+    return false;
+});
+```
+
+####Argumentos
+
+#####result (boolean)
+Resultado da validação.
+
+#####event (object)
+Evento de submit do formulário.
+
+#####form (object)
+Elemento do formulário que foi validado.
+
 ###Considerações
 - Todos campos devem possuir um id definido.
 - A posição do tooltip é calculada automaticamente quando a validação é realizada. Caso use um layout com movimentação podem ocorrer erros visuais.
 
 ### Dependências
-- jQuery 1.8.0
+- jQuery >= 1.8.0
 
 ###Licença
 MIT

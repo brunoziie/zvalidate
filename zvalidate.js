@@ -9,6 +9,8 @@
 
     var jQ = global.jQuery,
 
+        callbacks = {},
+
         // Regras de validacão padrão
         rules = {
             /**
@@ -262,8 +264,16 @@
              * @return {void}
              */
             bind : function () {
-                jQ(global.document).on('submit', '.validate', function () {
-                    return zValidate.validate.call(zValidate, this);
+                jQ(global.document).on('submit', 'form.validate', function (evt) {
+                    var $this = jQ(this),
+                        formId = $this[0].id || null,
+                        validationResult = zValidate.validate.call(zValidate, this);
+
+                    if (formId !== null && typeof callbacks['#' + formId] !== 'undefined') {
+                        return callbacks['#' + formId](validationResult, evt, $this);
+                    } else {
+                        return validationResult;
+                    }
                 });
             }
         };
@@ -277,9 +287,24 @@
      * @param  {Function} callback Implementação da regra
      * @return {void}
      */
-    global.zValidate.extensions = function (name, callback) {
+    global.zValidate.extensions = function (name, extension) {
+        if (typeof extension === 'function') {
+            rules[name] = extension;
+        }
+    };
+
+    /**
+     * Adiciona/Altera uma função de callback para ser executada apos a validação
+     * @param  {String}   id                    Id do formulário
+     * @param  {Function} callback              Funçào que será executada apos a validação
+     * @param  {Boolean}  callback.result       Resultado da validação
+     * @param  {Boolean}  callback.event        Evento de submit do formulário
+     * @param  {Object}   callback.formElement  Elemento do formulário que foi validado
+     * @return {void}
+     */
+    global.zValidate.setCallback = function (id, callback) {
         if (typeof callback === 'function') {
-            rules[name] = callback;
+            callbacks[id] = callback;
         }
     };
 
