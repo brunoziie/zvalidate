@@ -139,7 +139,22 @@ define um argumento, caso faça-se necessário.
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação (Ex: Consulta AJAX).
 
-**OBS: Caso não seja definido um callback, o comportamento padrão do formulário será executado**
+####setCallback (formId, callback)
+
+#####formId: string
+ID do formulário
+
+#####callback(result, event, form): function
+Funçao de callback
+
+#####callback.result (boolean)
+Resultado da validação.
+
+#####callback.event (object)
+Evento de submit do formulário.
+
+#####callback.form (object)
+Elemento do formulário que foi validado.
 
 ```javascript
 zValidate.setCallback('#myForm', function (result, event, form) {
@@ -154,16 +169,7 @@ zValidate.setCallback('#myForm', function (result, event, form) {
 });
 ```
 
-####Argumentos
-
-#####result (boolean)
-Resultado da validação.
-
-#####event (object)
-Evento de submit do formulário.
-
-#####form (object)
-Elemento do formulário que foi validado.
+**OBS: Caso não seja definido um callback, o comportamento padrão do formulário será executado**
 
 ###Considerações
 - Todos campos devem possuir um id definido.
