@@ -141,15 +141,15 @@ dependa do resultado da validação (Ex: Consulta AJAX).
 
 ####setCallback (formId, callback)
 
-**_string_ formId: ** ID do formulário
+** _string_ formId: ** ID do formulário
 
-**_function_ callback(result, event, form): ** Funçao de callback
+** _function_ callback(result, event, form): ** Funçao de callback
 
-**_boolean_ callback.result: ** Resultado da validação.
+** _boolean_ callback.result: ** Resultado da validação.
 
-**_object_ callback.event: ** Evento de submit do formulário.
+** _object_ callback.event: ** Evento de submit do formulário.
 
-**_object_ callback.form: ** Elemento do formulário que foi validado.
+** _object_ callback.form: ** Elemento do formulário que foi validado.
 
 ### Ex:
 ```javascript
