@@ -110,12 +110,12 @@ Define que campo do tipo radio deve ser marcado
 Define que campo deve conter um valor diferente do argumento (Indicado para selects)
 ```html
 <select name="exemplo9" id="exemplo9" data-rule="diff:0" data-message="Value deve ser diferente de 0">
-	<option value="0">Selecione algo</option>
-	<option value="1">Opçao 1</option>
-	<option value="2">Opçao 2</option>
-	<option value="3">Opçao 3</option>
-	<option value="4">Opçao 4</option>
-	<option value="5">Opçao 5</option>
+    <option value="0">Selecione algo</option>
+    <option value="1">Opçao 1</option>
+    <option value="2">Opçao 2</option>
+    <option value="3">Opçao 3</option>
+    <option value="4">Opçao 4</option>
+    <option value="5">Opçao 5</option>
 </select>
 ```
 
@@ -141,15 +141,16 @@ dependa do resultado da validação (Ex: Consulta AJAX).
 
 ####setCallback (formId, callback)
 
-** _string_ formId: ** ID do formulário
 
-** _function_ callback(result, event, form): ** Funçao de callback
+***string*** **formId:** ID do formulário
 
-** _boolean_ callback.result: ** Resultado da validação.
+***function*** **callback(** ***result***, ***event***, ***form*** **):** Funçao de callback
 
-** _object_ callback.event: ** Evento de submit do formulário.
+***boolean*** **callback.result:** Resultado da validação.
 
-** _object_ callback.form: ** Elemento do formulário que foi validado.
+***object*** **callback.event:** Evento de submit do formulário.
+
+***object*** **callback.form:** Elemento do formulário que foi validado.
 
 ### Ex:
 ```javascript
