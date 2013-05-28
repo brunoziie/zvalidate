@@ -141,21 +141,17 @@ dependa do resultado da validação (Ex: Consulta AJAX).
 
 ####setCallback (formId, callback)
 
-#####formId: string
-ID do formulário
+**_string_ formId: ** ID do formulário
 
-#####callback(result, event, form): function
-Funçao de callback
+**_function_ callback(result, event, form): ** Funçao de callback
 
-#####callback.result (boolean)
-Resultado da validação.
+**_boolean_ callback.result: ** Resultado da validação.
 
-#####callback.event (object)
-Evento de submit do formulário.
+**_object_ callback.event: ** Evento de submit do formulário.
 
-#####callback.form (object)
-Elemento do formulário que foi validado.
+**_object_ callback.form: ** Elemento do formulário que foi validado.
 
+### Ex:
 ```javascript
 zValidate.setCallback('#myForm', function (result, event, form) {
     if(result === true){
