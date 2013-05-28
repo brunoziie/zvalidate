@@ -138,6 +138,7 @@ define um argumento, caso faça-se necessário.
 ### Definindo um callback para a validação
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação (Ex: Consulta AJAX).
+
 **OBS: Caso não seja definido um callback, o comportamento padrão do formulário será executado**
 
 ```javascript
