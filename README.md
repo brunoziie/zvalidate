@@ -10,7 +10,11 @@ Inclua os arquivos `zvalidate.min.css` e `zvalidate.min.js` ao seu arquivo arqui
 <script src="zvalidate.min.js" type="text/javascript"></script>
 ```
 
+
+----------
+
 ###Uso
+
 
 Adicione a classe `validate` aos formulários que deseja validar
 ```html
@@ -34,6 +38,9 @@ Exemplo:
 ```html
 data-rule="date:Ymd|required"
 ```
+
+
+----------
 
 
 ###Regras padrões
@@ -120,6 +127,9 @@ Define que campo deve conter um valor diferente do argumento (Indicado para sele
 ```
 
 
+----------
+
+
 ###Criando regras personalizadas
 Se as regras padrões não forem suficientes para a sua aplicação é possível criar regras de validação personalizadas. Para adicionar uma nova regra use o método `zValidate.extensions`.
 
@@ -135,9 +145,14 @@ define um argumento, caso faça-se necessário.
 **OBS: As funções adicionadas devem ter um retorno booleano.**
 
 
+----------
+
+
 ### Definindo um callback para a validação
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação (Ex: Consulta AJAX).
+
+ <br/>
 
 ####zValidate.setCallback (formId, callback)
 
@@ -152,7 +167,8 @@ _object_ **callback.event:** Evento de submit do formulário.
 
 _object_ **callback.form:** Elemento do formulário que foi validado.
 
-### Ex:
+<br/>
+#### Ex:
 ```javascript
 zValidate.setCallback('#myForm', function (result, event, form) {
     if(result === true){
@@ -168,12 +184,24 @@ zValidate.setCallback('#myForm', function (result, event, form) {
 
 **OBS: Caso não seja definido um callback, o comportamento padrão do formulário será executado**
 
+
+----------
+
+
 ###Considerações
 - Todos campos devem possuir um id definido.
 - A posição do tooltip é calculada automaticamente quando a validação é realizada. Caso use um layout com movimentação podem ocorrer erros visuais.
 
+
+----------
+
+
 ### Dependências
 - jQuery >= 1.8.0
+
+
+----------
+
 
 ###Licença
 MIT
