@@ -139,7 +139,7 @@ define um argumento, caso faça-se necessário.
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação (Ex: Consulta AJAX).
 
-####setCallback (formId, callback)
+####zValidate.setCallback (formId, callback)
 
 
 _string_ **formId:** ID do formulário
