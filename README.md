@@ -131,12 +131,12 @@ Se as regras padrões não forem suficientes para a sua aplicação é possível
 
 **zValidate.extensions ( name, extension )**
 
-| Tipo            | Parâmetro           | Descrição                           |
-| --------------- |---------------------| ----------------------------------- |
-| _String_        | **name**            | Nome para a nova regra              |
-| _Function_      | **extension**       | Implementação da regra de validação |
-| _String_        | **extension.value** | Valor do campo                      |
-| _String_        | **extension.arg**   | Argumento opcional para a regra     |
+| Tipo            | Parâmetro                   | Descrição                           |
+| --------------- |-----------------------------| ----------------------------------- |
+| _String_        | **name**                    | Nome para a nova regra              |
+| _Function_      | **extension( value, arg )** | Implementação da regra de validação |
+| _String_        | **extension.value**         | Valor do campo                      |
+| _String_        | **extension.arg**           | Argumento opcional para a regra     |
 
 **Ex:**
 ```javascript
