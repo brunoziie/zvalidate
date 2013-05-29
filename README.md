@@ -186,10 +186,12 @@ zValidate.setCallback('#myForm', function (result, event, form) {
 É possivel criar um tooltip personalizado para um campo usando uma função de callback.
 Isso pode ser util para verificações externas (Login em sistema, Verificação de dispinibilidade de emails e etc),  
 
-####this.tooltip (inputId, text)
-_string_ **inputId:** ID do campo
+####this.tooltip ( inputId, text )
 
-_string_ **text:** Texto do tooltip
+| Tipo            | Parâmetro      | Descrição             |
+| --------------- |:-------------------:| ------------------------:|
+| _string_      |  **inputId**   | ID do campo        |
+| _string_      | **text**         | Texto do tooltip   |
 
 
 #### Ex:
