@@ -151,10 +151,8 @@ define um argumento, caso faça-se necessário.
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação.
 
- <br/>
 
-####zValidate.setCallback (formId, callback)
-
+####zValidate.setCallback ( formId, callback )
 
 _string_ **formId:** ID do formulário
 
@@ -166,7 +164,7 @@ _object_ **callback.event:** Evento de submit do formulário.
 
 _object_ **callback.form:** Elemento do formulário que foi validado.
 
-<br/>
+
 #### Ex:
 ```javascript
 zValidate.setCallback('#myForm', function (result, event, form) {
@@ -190,9 +188,10 @@ Isso pode ser util para verificações externas (Login em sistema, Verificação
 
 ####this.tooltip (inputId, text)
 _string_ **inputId:** ID do campo
+
 _string_ **text:** Texto do tooltip
 
-<br/>
+
 #### Ex:
 ```javascript
 zValidate.setCallback('#myForm', function (result) {
