@@ -196,6 +196,7 @@
              * Gera um tooltip com a mensagem de erro para um campo
              * @param  {Object} form  Formulário que está sendo validado   
              * @param  {Object} input Campo que receberá o tooltip
+             * @param  {String} text  Texto que será exibido no tootip (OBS: Se não for definido um texto, será assumido o atributo data-message do input)
              * @return {void}
              */
             generateTooltip: function (form, input, text) {

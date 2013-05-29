@@ -153,17 +153,13 @@ dependa do resultado da validação.
 
 
 ####zValidate.setCallback ( formId, callback )
-
-_string_ **formId:** ID do formulário
-
-_function_ **callback(** ***result***, ***event***, ***form*** **):** Funçao de callback
-
-_boolean_ **callback.result:** Resultado da validação.
-
-_object_ **callback.event:** Evento de submit do formulário.
-
-_object_ **callback.form:** Elemento do formulário que foi validado.
-
+| Tipo            | Parâmetro      | Descrição             |
+| --------------- |:-------------------:| ------------------------ |
+| _string_      |  **formId**   | ID do formulário        |
+| _function_      | **callback(** ***result***, ***event***, ***form*** **)** | Funçao de callback   |
+| _boolean_ |**callback.result** | Resultado da validação |
+| _object_ |**callback.event:** |Evento de submit do formulário|
+| _object_ |**callback.form:** |Elemento do formulário que foi validado |
 
 #### Ex:
 ```javascript
@@ -189,7 +185,7 @@ Isso pode ser util para verificações externas (Login em sistema, Verificação
 ####this.tooltip ( inputId, text )
 
 | Tipo            | Parâmetro      | Descrição             |
-| --------------- |:-------------------:| ------------------------:|
+| --------------- |:-------------------:| ------------------------ |
 | _string_      |  **inputId**   | ID do campo        |
 | _string_      | **text**         | Texto do tooltip   |
 
