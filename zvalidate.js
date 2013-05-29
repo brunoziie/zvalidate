@@ -18,7 +18,7 @@
              * @param  {String}  string Valor do input
              * @return {Boolean}        Verdadeiro caso o campo for preenchido
              */
-            required : function (string) {
+            required: function (string) {
                 return (typeof string === 'string' && string.length > 0) ? true : false;
             },
 
@@ -27,7 +27,7 @@
              * @param  {String}  string Valor do input
              * @return {Boolean}        Verdadeiro caso o campo contenha um email
              */
-            email : function (string) {
+            email: function (string) {
                 var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                 return (filter.test(string)) ? true : false;
             },
@@ -37,7 +37,7 @@
              * @param  {String}  string Valor do input
              * @return {Boolean}        Verdadeiro caso o campo contenha um numero inteiro
              */
-            integer : function (string) {
+            integer: function (string) {
                 var filter = /^[0-9]+$/;
                 return (filter.test(string)) ? true : false;
             },
@@ -47,7 +47,7 @@
              * @param  {String}  string Valor do input
              * @return {Boolean}        Verdadeiro caso o campo contenha um numero decimal
              */
-            decimal : function (string) {
+            decimal: function (string) {
                 var filter = /[\-]?[0-9]+(\.|\,)[0-9]+$/;
                 return (filter.test(string)) ? true : false;
             },
@@ -58,7 +58,7 @@
              * @param  {Integer} min    Numero minimo de caracteres
              * @return {Boolean}        Verdadeiro caso o campo contenha o numero minimo de caracteres exigidos
              */
-            minLength : function (string, min) {
+            minLength: function (string, min) {
                 return (string.length >= min) ? true : false;
             },
 
@@ -68,7 +68,7 @@
              * @param  {Integer} max    Numero maximo de caracteres permitidos
              * @return {Boolean}        Verdadeiro caso o campo contenha o numero de caracteres igual ou inferir ao exigidos
              */
-            maxLength : function (string, max) {
+            maxLength: function (string, max) {
                 return (string.length <= max) ? true : false;
             },
 
@@ -78,7 +78,7 @@
              * @param  {String}  format Formato da data (Ymd ou dmY)
              * @return {Boolean}        Verdadeiro caso contenha uma data válida
              */
-            date : function (string, format) {
+            date: function (string, format) {
                 var dateFormat = format || 'Ymd',
                     dateString = string,
                     compare,
@@ -114,7 +114,7 @@
              * @param  {String}  string Valor do input
              * @return {Boolean}        Verdadeiro caso o campo contenha um endereço IP
              */
-            ip : function (string) {
+            ip: function (string) {
                 var filter = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
                 return (filter.test(string)) ? true : false;
             },
@@ -124,7 +124,7 @@
              * @param  {String}  string Valor do input
              * @return {Boolean}        Verdadeiro caso contenha uma URL válida
              */
-            url : function (string) {
+            url: function (string) {
                 var filter = /((http|https):\/\/(\w+:{0,1}\w*@)?(\S+)|)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
                 return (string.length > 0 && filter.test(string)) ? true : false;
             },
@@ -135,14 +135,17 @@
              * @param  {String}  elementId Id do elemento que o valor será comparado
              * @return {Boolean}           Verdadeiro caso ambos os campos tenham o mesmo valor
              */
-            equals : function (string, elementId) {
-                var input = global.document.getElementById(elementId);
+            equals: function (string, elementId) {
+                var input = global.document.getElementById(elementId),
+                    result;
 
                 if (input !== null) {
-                    return (string === input.value) ? true : false;
+                    result = (string === input.value) ? true : false;
                 } else {
-                    return false;
+                    result = false;
                 }
+
+                return result;
             },
 
             /**
@@ -151,14 +154,14 @@
              * @param  {String}  name   Name usado para os radios
              * @return {Boolean}        Verdadeiro caso um item esteja selecionado
              */
-            radio : function (string, name) {
+            radio: function (string, name) {
                 var input = global.document.getElementsByName(name),
                     len = input.length,
                     i;
 
                 if (len > 0) {
                     for (i = 0; i < len; i += 1) {
-                        if (input[i].checked) {
+                        if (input[i].checked && string !== '') {
                             return true;
                         }
                     }
@@ -185,7 +188,7 @@
              * @param  {String} ruleString Regra definida no campo
              * @return {Array}             Array com o primeiro indice como o nome da regra e o segundo como argumento
              */
-            parseArg : function (ruleString) {
+            parseArg: function (ruleString) {
                 return ruleString.split(':');
             },
 
@@ -195,15 +198,15 @@
              * @param  {Object} input Campo que receberá o tooltip
              * @return {void}
              */
-            generateTooltip : function (form, input) {
+            generateTooltip: function (form, input, text) {
                 var currentInput = jQ(input),
-                    message = currentInput.data('message') || '',
+                    message = text || currentInput.data('message') || '',
                     className = 'z_tooltip',
                     inputId = currentInput.attr('id'),
                     offsets = currentInput.offset(),
                     formOffsets = jQ(form).offset(),
                     finalPosition = [offsets.left - formOffsets.left, offsets.top - formOffsets.top],
-                    id = className + '_' + currentInput.attr('id'),
+                    id = className + '_' + inputId,
                     css = 'top:' + (finalPosition[1] - 35) + 'px;left:' + (finalPosition[0] + currentInput.width() - 40) + 'px;position:absolute',
                     html = [
                         '<div id="' + id + '" class="' + className + '" style="' + css + '">',
@@ -239,13 +242,13 @@
                 for (i = 0; i < len; i += 1) {
                     current = jQ(inputList[i]);
 
-                    if (typeof current.data('rule') !== 'undefined') {
+                    if (current.data('rule') !== undefined) {
                         rulesList = current.data('rule').split('|');
                         rulesListLen = rulesList.length;
 
                         for (x = 0; x < rulesListLen; x += 1) {
                             currentRule = this.parseArg(rulesList[x]);
-                            if (typeof rules[currentRule[0]] !== 'undefined') {
+                            if (rules[currentRule[0]] !== undefined) {
                                 args = currentRule[1] || '';
                                 if (!rules[currentRule[0]](current.val(), args)) {
                                     this.generateTooltip(form, current);
@@ -264,21 +267,24 @@
              * @return {void}
              */
             bind : function () {
+                var self = this;
+
                 jQ(global.document).on('submit', 'form.validate', function (evt) {
                     var $this = jQ(this),
                         formId = $this[0].id || null,
-                        validationResult = zValidate.validate.call(zValidate, this);
+                        result = self.validate($this),
+                        privateScopeAPI = {
+                            tooltip: function (input, text) {
+                                self.generateTooltip($this, input, text);
+                            }
+                        };
 
-                    if (formId !== null && typeof callbacks['#' + formId] !== 'undefined') {
-                        return callbacks['#' + formId](validationResult, evt, $this);
-                    } else {
-                        return validationResult;
-                    }
+                    return (formId !== null && callbacks['#' + formId] !== undefined) ? callbacks['#' + formId].call(privateScopeAPI, result, evt, $this) : result;
                 });
             }
         };
 
-    // Create scope
+    // Public API
     global.zValidate = {};
 
     /**

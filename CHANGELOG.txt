@@ -1,0 +1,3 @@
+[2013/05/29]
+- Lint fixes
+- Add support for custom tooltips in callback methods

@@ -10,7 +10,6 @@ Inclua os arquivos `zvalidate.min.css` e `zvalidate.min.js` ao seu arquivo arqui
 <script src="zvalidate.min.js" type="text/javascript"></script>
 ```
 
-
 ----------
 
 ###Uso
@@ -150,7 +149,7 @@ define um argumento, caso faça-se necessário.
 
 ### Definindo um callback para a validação
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
-dependa do resultado da validação (Ex: Consulta AJAX).
+dependa do resultado da validação.
 
  <br/>
 
@@ -184,11 +183,27 @@ zValidate.setCallback('#myForm', function (result, event, form) {
 
 **OBS: Caso não seja definido um callback, o comportamento padrão do formulário será executado**
 
+----------
+### Tooltips personalizados 
+É possivel criar um tooltip personalizado para um campo usando uma função de callback.
+Isso pode ser util para verificações externas (Login em sistema, Verificação de dispinibilidade de emails e etc),  
+
+####this.tooltip (inputId, text)
+_string_ **inputId:** ID do campo
+_string_ **text:** Texto do tooltip
+
+<br/>
+#### Ex:
+```javascript
+zValidate.setCallback('#myForm', function (result) {
+    this.tooltip('#email', 'Email indisponível');
+});
+```
 
 ----------
 
 
-###Considerações
+### Considerações
 - Todos campos devem possuir um id definido.
 - A posição do tooltip é calculada automaticamente quando a validação é realizada. Caso use um layout com movimentação podem ocorrer erros visuais.
 
