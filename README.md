@@ -12,7 +12,7 @@ Inclua os arquivos `zvalidate.min.css` e `zvalidate.min.js` ao seu arquivo arqui
 
 ----------
 
-###Uso
+### Uso
 
 
 Adicione a classe `validate` aos formulários que deseja validar
@@ -20,10 +20,8 @@ Adicione a classe `validate` aos formulários que deseja validar
 <form class="validate"></form>
 ```
 
-Adicione os atributos `data-rule` e `data-message` ao input que receberá a validação.
-
-O atributo `data-rule` definirá quais regras de validação deverão ser usadas.
-
+Adicione os atributos `data-rule` e `data-message` ao input que receberá a validação.<br>
+O atributo `data-rule` definirá quais regras de validação deverão ser usadas.<br>
 O atributo `data-message` definirá qual mensagem deverá ser mostrado no tooltip em caso de erro.
 ```html
 <form class="validate">
@@ -41,70 +39,69 @@ data-rule="date:Ymd|required"
 
 ----------
 
-
 ###Regras padrões
-#####required
+**required**<br>
 Define que o campo não pode ser deixado vazio.
 ```html
 <input type="text" data-rule="required" data-message="Campo obrigatorio" id="exemplo1">
 ```
 
-#####email
+**email**<br>
 Define que o campo deve conter um endereço de email.
 ```html
 <input type="text" data-rule="email" data-message="Email inválido" id="exemplo2">
 ```
 
-#####integer
+**integer**<br>
 Define que o campo deve conter o número inteiro.
 ```html
 <input type="text" data-rule="integer" data-message="Não é um número inteiro" id="exemplo3">
 ```
 
-#####decimal
+**decimal**<br>
 Define que o campo deve conter o número decimal.
 ```html
 <input type="text" data-rule="decimal" data-message="Não é um número decimal" id="exemplo4">
 ```
 
-#####minLength:999
+**minLength: 999**<br>
 Define que o campo deve conter um número mínimo de caracteres
 ```html
 <input type="text" data-rule="minLength:100" data-message="Deve conter 100 caracteres" id="exemplo5">
 ```
 
-#####maxLength:999
+**maxLength: 999**<br>
 Define que o campo pode conter até um numero máximo de caracteres
 ```html
 <input type="text" data-rule="maxLength:25" data-message="Deve conter ate 25 caracteres" id="exemplo6">
 ```
 
-#####date:(Ymd|dmY)
+**date: (Ymd|dmY)**<br>
 Define que o campo deve conter uma data válida. Caso não seja informado um formato de data será usado **Ymd**
 ```html
 <input type="text" data-rule="date:dmY" data-message="Data inválida" id="exemplo7">
 ```
 
-#####ip
+**ip**<br>
 Define que o campo deve um endereço IP
 ```html
 <input type="text" data-rule="ip" data-message="IP inválido" id="exemplo7">
 ```
 
-#####url
+**url**<br>
 Define que o campo deve conter uma URL válida
 ```html
 <input type="text" data-rule="url" data-message="URL inválida" id="exemplo7">
 ```
 
-#####equals:id
+**equals: id**<br>
 Define que o campo deve ter o valor igual a um outro campo definido
 ```html
 <input type="text" data-rule="required" data-message="Campo obrigatório" id="password">
 <input type="text" data-rule="equals:password" data-message="Os campos não conferem" id="conf_password">
 ```
 
-#####radio:name
+**radio :name**<br>
 Define que campo do tipo radio deve ser marcado
 ```html
 <input type="radio" name="myRadioInput" value="25" data-rule="radio:myRadioInput" data-message="Selecione uma opçao">
@@ -112,7 +109,7 @@ Define que campo do tipo radio deve ser marcado
 <input type="radio" name="myRadioInput" value="100" />
 ```
 
-#####diff:arg
+**diff: arg**<br>
 Define que campo deve conter um valor diferente do argumento (Indicado para selects)
 ```html
 <select name="exemplo9" id="exemplo9" data-rule="diff:0" data-message="Value deve ser diferente de 0">
@@ -132,6 +129,16 @@ Define que campo deve conter um valor diferente do argumento (Indicado para sele
 ###Criando regras personalizadas
 Se as regras padrões não forem suficientes para a sua aplicação é possível criar regras de validação personalizadas. Para adicionar uma nova regra use o método `zValidate.extensions`.
 
+**zValidate.extensions ( name, extension )**
+
+| Tipo            | Parâmetro           | Descrição                           |
+| --------------- |---------------------| ----------------------------------- |
+| _String_        | **name**            | Nome para a nova regra              |
+| _Function_      | **extension**       | Implementação da regra de validação |
+| _String_        | **extension.value** | Valor do campo                      |
+| _String_        | **extension.arg**   | Argumento opcional para a regra     |
+
+**Ex:**
 ```javascript
 zValidate.extensions('novaRegra', function (value, arg) {
     // ...
@@ -151,17 +158,17 @@ define um argumento, caso faça-se necessário.
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação.
 
+**zValidate.setCallback ( formId, callback )**
 
-####zValidate.setCallback ( formId, callback )
-| Tipo            | Parâmetro      | Descrição             |
-| --------------- |-------------------| ------------------------ |
-| _string_      |  **formId**   | ID do formulário        |
-| _function_      | **callback(** ***result***, ***event***, ***form*** **)** | Funçao de callback   |
-| _boolean_ |**callback.result** | Resultado da validação |
-| _object_ |**callback.event** |Evento de submit do formulário|
-| _object_ |**callback.form** |Elemento do formulário que foi validado |
+| Tipo            | Parâmetro           | Descrição                               |
+| --------------- |---------------------| --------------------------------------- |
+| _String_        | **formId**          | ID do formulário                        |
+| _Function_      | **callback(** ***result***, ***event***, ***form*** **)** | Funçao de callback   |
+| _Boolean_       | **callback.result** | Resultado da validação                  |
+| _Object_        | **callback.event**  | Evento de submit do formulário          |
+| _Object_        | **callback.form**   | Elemento do formulário que foi validado |
 
-#### Ex:
+**Ex:**
 ```javascript
 zValidate.setCallback('#myForm', function (result, event, form) {
     if(result === true){
@@ -182,15 +189,15 @@ zValidate.setCallback('#myForm', function (result, event, form) {
 É possivel criar um tooltip personalizado para um campo usando uma função de callback.
 Isso pode ser util para verificações externas (Login em sistema, Verificação de dispinibilidade de emails e etc),  
 
-####this.tooltip ( inputId, text )
+**this.tooltip ( inputId, text )**
 
-| Tipo            | Parâmetro      | Descrição             |
-| --------------- |:-------------------:| ------------------------ |
-| _string_      |  **inputId**   | ID do campo        |
-| _string_      | **text**         | Texto do tooltip   |
+| Tipo            | Parâmetro           | Descrição                |
+| --------------- |---------------------| ------------------------ |
+| _String_        | **inputId**         | ID do campo              |
+| _String_        | **text**            | Texto do tooltip         |
 
 
-#### Ex:
+**Ex:**
 ```javascript
 zValidate.setCallback('#myForm', function (result) {
     this.tooltip('#email', 'Email indisponível');
@@ -199,21 +206,16 @@ zValidate.setCallback('#myForm', function (result) {
 
 ----------
 
-
 ### Considerações
 - Todos campos devem possuir um id definido.
 - A posição do tooltip é calculada automaticamente quando a validação é realizada. Caso use um layout com movimentação podem ocorrer erros visuais.
 
-
 ----------
-
 
 ### Dependências
 - jQuery >= 1.8.0
 
-
 ----------
-
 
 ###Licença
 MIT
