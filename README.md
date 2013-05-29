@@ -31,7 +31,7 @@ O atributo `data-message` definirá qual mensagem deverá ser mostrado no toolti
 Algumas regras podem receber um parâmetros. Esse parâmetro pode ser informado usando a seguinte sintaxe
 `data-rule="date:Ydm"`. É possível também definir mais de uma regra para um input, as mesmas devem ser encadeadas usando o separador `|`.
 
-Exemplo:
+**Ex:**
 ```html
 data-rule="date:Ymd|required"
 ```
@@ -144,9 +144,6 @@ zValidate.extensions('novaRegra', function (value, arg) {
     // ...
 });
 ```
-
-O primeiro parâmetro da nova regra irá receber o valor do campo e o segundo parametro
-define um argumento, caso faça-se necessário.
 
 **OBS: As funções adicionadas devem ter um retorno booleano.**
 
