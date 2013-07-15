@@ -1,0 +1,30 @@
+{
+    "name": "zValidate",
+    "description": "Um simples validador de formulários",
+    "version": "0.1.23",
+    "keywords": [
+        "validate",
+        "form"
+    ],
+    "maintainers": [
+        {
+            "name": "Bruno Ziie",
+            "email": "eu@brunoziie.com",
+            "web": "http://www.brunoziie.com"
+        }
+    ],
+    "dependencies": {
+        "jquery": "~1.8.0"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-uglify": "~0.1.2",
+        "grunt-contrib-cssmin": "~0.4.1"
+    },
+    "licenses": [
+        {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ]
+}

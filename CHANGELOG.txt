@@ -1,3 +1,7 @@
 [2013/05/29]
 - Lint fixes
 - Add support for custom tooltips in callback methods
+
+[2013/07/15]
+- Some enhancements in the code
+- Add grunt
