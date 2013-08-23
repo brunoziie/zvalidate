@@ -244,7 +244,7 @@
             for (i = 0; i < len; i += 1) {
                 current = jQ(inputList[i]);
 
-                if (current.data('rule') !== undefined) {
+                if (current.data('rule') !== undefined && current.css('display') !== 'none') {
                     rulesList = current.data('rule').split('|');
                     rulesListLen = rulesList.length;
 
