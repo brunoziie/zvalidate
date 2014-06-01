@@ -1,4 +1,4 @@
-zValidate v0.1
+zValidate v0.2
 =========
 
 Um simples validador de formulários
@@ -101,8 +101,8 @@ Define que o campo deve ter o valor igual a um outro campo definido
 <input type="text" data-rule="equals:password" data-message="Os campos não conferem" id="conf_password">
 ```
 
-**radio :name**<br>
-Define que campo do tipo radio deve ser marcado
+**checked**<br>
+Define que campo do tipo radio ou checkbox deve ser marcado
 ```html
 <input type="radio" name="myRadioInput" value="25" data-rule="radio:myRadioInput" data-message="Selecione uma opçao">
 <input type="radio" name="myRadioInput" value="50" />
@@ -127,20 +127,19 @@ Define que campo deve conter um valor diferente do argumento (Indicado para sele
 
 
 ###Criando regras personalizadas
-Se as regras padrões não forem suficientes para a sua aplicação é possível criar regras de validação personalizadas. Para adicionar uma nova regra use o método `zValidate.extensions`.
+Se as regras padrões não forem suficientes para a sua aplicação é possível criar regras de validação personalizadas. Para adicionar uma nova regra use o método `zValidate.rule`.
 
 **zValidate.extensions ( name, extension )**
 
-| Tipo            | Parâmetro                   | Descrição                           |
-| --------------- |-----------------------------| ----------------------------------- |
-| _String_        | **name**                    | Nome para a nova regra              |
-| _Function_      | **extension( value, arg )** | Implementação da regra de validação |
-| _String_        | **extension.value**         | Valor do campo                      |
-| _String_        | **extension.arg**           | Argumento opcional para a regra     |
+| Tipo            | Parâmetro             | Descrição                           |
+| --------------- |-----------------------| ----------------------------------- |
+| _String_        | **name**              | Nome para a nova regra              |
+| _Function_      | **rule(arg)**         | Implementação da regra de validação |
+| _String_        | **rule.arg**          | Argumento opcional para a regra     |
 
 **Ex:**
 ```javascript
-zValidate.extensions('novaRegra', function (value, arg) {
+zValidate.rule('novaRegra', function (arg) {
     // ...
 });
 ```
@@ -155,7 +154,7 @@ zValidate.extensions('novaRegra', function (value, arg) {
 Você pode definir uma função de callback para um formulário caso deseje realizar alguma operação que
 dependa do resultado da validação.
 
-**zValidate.setCallback ( formId, callback )**
+**zValidate.afterValidate ( formId, callback )**
 
 | Tipo            | Parâmetro           | Descrição                               |
 | --------------- |---------------------| --------------------------------------- |
@@ -211,6 +210,13 @@ zValidate.setCallback('#myForm', function (result) {
 
 ### Dependências
 - jQuery >= 1.8.0
+
+----------
+
+### Todo
+- Melhorar sistema de tooltips
+- Aplicar i18n
+- Criar o callback onError 
 
 ----------
 

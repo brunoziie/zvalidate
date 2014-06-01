@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>zValidate v0.1</title>
-    <link href="../dist/zvalidate.min.css" rel="stylesheet">
+    <link href="../src/zvalidate.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-    <script src="../dist/zvalidate.min.js" type="text/javascript"></script>
+    <script src="../src/zvalidate.js" type="text/javascript"></script>
     <script type="text/javascript">
-        zValidate.setCallback('#myForm', function (result, event, form) {
+        zValidate.beforeValidate('#myForm', function (result, event, form) {
             if(result === true){
                 alert('Tudo ok! :)');
                 this.tooltip('#email', 'Oi, eu sou um tooltip personalizado :)');
