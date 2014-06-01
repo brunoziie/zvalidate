@@ -16,71 +16,74 @@
     rules = {
         /**
          * Define que o campo não pode ser vazio
-         * @param  {String}  string Valor do input
-         * @return {Boolean}        Verdadeiro caso o campo for preenchido
+         * @return {Boolean} Verdadeiro caso o campo for preenchido
          */
-        required: function (string) {
+        required: function () {
+            var string = this.value;
             return (typeof string === 'string' && string.length > 0) ? true : false;
         },
 
         /**
          * Define que o campo deve conter um endereço de email
-         * @param  {String}  string Valor do input
-         * @return {Boolean}        Verdadeiro caso o campo contenha um email
+         * @return {Boolean} Verdadeiro caso o campo contenha um email
          */
-        email: function (string) {
-            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        email: function () {        
+            var string = this.value,
+                filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
             return (filter.test(string)) ? true : false;
         },
 
         /**
          * Define que o campo deve conter o numero inteiro
-         * @param  {String}  string Valor do input
-         * @return {Boolean}        Verdadeiro caso o campo contenha um numero inteiro
+         * @return {Boolean} Verdadeiro caso o campo contenha um numero inteiro
          */
-        integer: function (string) {
-            var filter = /^[0-9]+$/;
+        integer: function () {
+            var string = this.value,
+                filter = /^[0-9]+$/;
+
             return (filter.test(string)) ? true : false;
         },
 
         /**
          * Define que o campo deve conter um numero decimal
-         * @param  {String}  string Valor do input
-         * @return {Boolean}        Verdadeiro caso o campo contenha um numero decimal
+         * @return {Boolean} Verdadeiro caso o campo contenha um numero decimal
          */
-        decimal: function (string) {
-            var filter = /[\-]?[0-9]+(\.|\,)[0-9]+$/;
+        decimal: function () {
+            var string = this.value,
+                filter = /[\-]?[0-9]+(\.|\,)[0-9]+$/;
+
             return (filter.test(string)) ? true : false;
         },
 
         /**
          * Define que o campo deve conter um numero minimo de caracteres
-         * @param  {String}  string Valor do input
-         * @param  {Integer} min    Numero minimo de caracteres
-         * @return {Boolean}        Verdadeiro caso o campo contenha o numero minimo de caracteres exigidos
+         * @param  {Integer} min Numero minimo de caracteres
+         * @return {Boolean}     Verdadeiro caso o campo contenha o numero minimo de caracteres exigidos
          */
-        minLength: function (string, min) {
+        minLength: function (min) {
+            var string = this.value;
             return (string.length >= min) ? true : false;
         },
 
         /**
          * Define que o campo deve conter ate um numero maximo de caracteres
-         * @param  {String}  string Valor do input
-         * @param  {Integer} max    Numero maximo de caracteres permitidos
-         * @return {Boolean}        Verdadeiro caso o campo contenha o numero de caracteres igual ou inferir ao exigidos
+         * @param  {Integer} max Numero maximo de caracteres permitidos
+         * @return {Boolean}     Verdadeiro caso o campo contenha o numero de caracteres igual ou inferir ao exigidos
          */
-        maxLength: function (string, max) {
+        maxLength: function (max) {
+            var string = this.value;
             return (string.length <= max) ? true : false;
         },
 
         /**
          * Define que o campo deve conter uma data válida
-         * @param  {String}  string Valor do input
          * @param  {String}  format Formato da data (Ymd ou dmY)
          * @return {Boolean}        Verdadeiro caso contenha uma data válida
          */
-        date: function (string, format) {
-            var dateFormat = format || 'Ymd',
+        date: function (format) {
+            var string = this.value,
+                dateFormat = format || 'Ymd',
                 dateString = string,
                 compare,
                 parse,
@@ -112,32 +115,34 @@
 
         /**
          * Define que o campo deve um endereço IP
-         * @param  {String}  string Valor do input
-         * @return {Boolean}        Verdadeiro caso o campo contenha um endereço IP
+         * @return {Boolean} Verdadeiro caso o campo contenha um endereço IP
          */
-        ip: function (string) {
-            var filter = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+        ip: function () {
+            var string = this.value,
+                filter = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+
             return (filter.test(string)) ? true : false;
         },
 
         /**
          * Define que o campo deve conter uma URL válida
-         * @param  {String}  string Valor do input
-         * @return {Boolean}        Verdadeiro caso contenha uma URL válida
+         * @return {Boolean} Verdadeiro caso contenha uma URL válida
          */
-        url: function (string) {
-            var filter = /((http|https):\/\/(\w+:{0,1}\w*@)?(\S+)|)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        url: function () {
+            var string = this.value,
+                filter = /((http|https):\/\/(\w+:{0,1}\w*@)?(\S+)|)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
             return (string.length > 0 && filter.test(string)) ? true : false;
         },
 
         /**
          * Define que o campo deve ter o valor igual ao valor de um outro campo definido
-         * @param  {String}  string    Valor do input
          * @param  {String}  elementId Id do elemento que o valor será comparado
          * @return {Boolean}           Verdadeiro caso ambos os campos tenham o mesmo valor
          */
-        equals: function (string, elementId) {
-            var input = window.document.getElementById(elementId),
+        equals: function (elementId) {
+            var string = this.value,
+                input = window.document.getElementById(elementId),
                 result;
 
             if (input !== null) {
@@ -150,19 +155,18 @@
         },
 
         /**
-         * Define que o campo do tipo radio deve ser selecionado
-         * @param  {String}  string Valor do input
-         * @param  {String}  name   Name usado para os radios
-         * @return {Boolean}        Verdadeiro caso um item esteja selecionado
+         * Define que o campo do tipo radio ou checkbox deve ser selecionado
+         * @return {Boolean} Verdadeiro caso um item esteja selecionado
          */
-        radio: function (string, name) {
-            var input = window.document.getElementsByName(name),
+        checked: function () {
+            var name = this.name,
+                input = window.document.getElementsByName(name),
                 len = input.length,
                 i;
 
             if (len > 0) {
                 for (i = 0; i < len; i += 1) {
-                    if (input[i].checked && string !== '') {
+                    if (input[i].checked) {
                         return true;
                     }
                 }
@@ -177,8 +181,8 @@
          * @param  {String}  arg    Argumento a ser comparado com a string
          * @return {Boolean}        Verdadeiro caso o valor e argumento informado sejam diferentes
          */
-        diff: function (string, arg) {
-            return (string !== arg) ? true : false;
+        diff: function (arg) {
+            return (this.value !== arg) ? true : false;
         }
     };
 
@@ -190,7 +194,12 @@
          * @return {Array}             Array com o primeiro indice como o nome da regra e o segundo como argumento
          */
         parseArg: function (ruleString) {
-            return ruleString.split(':');
+            var parts = ruleString.split(':');
+            
+            return {
+                rule: parts[0],
+                arguments: parts[1] || null
+            };
         },
 
         /**
@@ -234,6 +243,7 @@
                 rulesListLen,
                 current,
                 currentRule,
+                valid,
                 args,
                 i,
                 x,
@@ -250,9 +260,11 @@
 
                     for (x = 0; x < rulesListLen; x += 1) {
                         currentRule = this.parseArg(rulesList[x]);
-                        if (rules[currentRule[0]] !== undefined) {
-                            args = currentRule[1] || '';
-                            if (!rules[currentRule[0]](current.val(), args)) {
+
+                        if (rules[currentRule.rule] !== undefined) {
+                            valid = rules[currentRule.rule].apply(current[0], [currentRule.arguments]);
+
+                            if (!valid) {
                                 this.generateTooltip(form, current);
                                 output = false;
                             }
@@ -271,7 +283,7 @@
      * @param  {Function} callback Implementação da regra
      * @return {void}
      */
-    API.extensions = function (name, extension) {
+    API.rule = function (name, extension) {
         if (typeof extension === 'function') {
             rules[name] = extension;
         }
@@ -286,7 +298,7 @@
      * @param  {Object}   callback.formElement  Elemento do formulário que foi validado
      * @return {void}
      */
-    API.setCallback = function (id, callback) {
+    API.afterValidate = function (id, callback) {
         if (typeof callback === 'function') {
             callbacks[id] = callback;
         }
