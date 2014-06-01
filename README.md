@@ -166,7 +166,7 @@ dependa do resultado da validação.
 
 **Ex:**
 ```javascript
-zValidate.setCallback('#myForm', function (result, event, form) {
+zValidate.afterValidate('#myForm', function (result, event, form) {
     if(result === true){
         alert('Tudo ok! :)');
     } else {
