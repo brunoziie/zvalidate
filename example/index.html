@@ -7,7 +7,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
     <script src="../src/zvalidate.js" type="text/javascript"></script>
     <script type="text/javascript">
-        zValidate.beforeValidate('#myForm', function (result, event, form) {
+        zValidate.afterValidate('#myForm', function (result, event, form) {
             if(result === true){
                 alert('Tudo ok! :)');
                 this.tooltip('#email', 'Oi, eu sou um tooltip personalizado :)');
@@ -23,7 +23,7 @@
 <body>
     <br><br>
     <form id="myForm" action="" class="validate">
-        Required: <input type="text" data-rule="required" data-message="Campo obrigatorio" id="required"><br><br><br>
+        Required: <input type="text" data-rule="required" data-messages-required="Campo obrigatório" id="required"><br><br><br>
         Integer: <input type="text" data-rule="integer" data-message="O campo não é um numero válido" id="integer"><br><br><br>
         Date: <input type="text" data-rule="date:dmY" data-message="Data inválida" id="date"><br><br><br>
         Email: <input type="text" data-rule="email" data-message="Endereco de email em formato inválido" id="email"><br><br><br>

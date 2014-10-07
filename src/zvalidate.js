@@ -247,6 +247,8 @@
                 args,
                 i,
                 x,
+                rule,
+                message,
                 output = true;
 
             jQ(form).find('.z_tooltip').remove();
@@ -260,12 +262,14 @@
 
                     for (x = 0; x < rulesListLen; x += 1) {
                         currentRule = this.parseArg(rulesList[x]);
+                        rule = currentRule.rule;
 
-                        if (rules[currentRule.rule] !== undefined) {
-                            valid = rules[currentRule.rule].apply(current[0], [currentRule.arguments]);
+                        if (rules[rule] !== undefined) {
+                            valid = rules[rule].apply(current[0], [currentRule.arguments]);
 
                             if (!valid) {
-                                this.generateTooltip(form, current);
+                                message = current.data('messages' + rule.charAt(0).toUpperCase() + rule.slice(1));
+                                this.generateTooltip(form, current, message);
                                 output = false;
                             }
                         }
