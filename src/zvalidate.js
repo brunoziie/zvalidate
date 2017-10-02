@@ -4,13 +4,14 @@
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  * @author: Bruno Silva | eu@brunoziie.com
  **/
-(function (window, jQ) {
+(function (window, $) {
     'use strict';
 
     var callbacks = {},
         rules,
         zValidate,
-        API = {};
+        API = {},
+        messages = {};
 
     // Regras de validacão padrão
     rules = {
@@ -27,7 +28,7 @@
          * Define que o campo deve conter um endereço de email
          * @return {Boolean} Verdadeiro caso o campo contenha um email
          */
-        email: function () {        
+        email: function () {
             var string = this.value,
                 filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -195,7 +196,7 @@
          */
         parseArg: function (ruleString) {
             var parts = ruleString.split(':');
-            
+
             return {
                 rule: parts[0],
                 arguments: parts[1] || null
@@ -204,31 +205,35 @@
 
         /**
          * Gera um tooltip com a mensagem de erro para um campo
-         * @param  {Object} form  Formulário que está sendo validado   
+         * @param  {Object} form  Formulário que está sendo validado
          * @param  {Object} input Campo que receberá o tooltip
          * @param  {String} text  Texto que será exibido no tootip (OBS: Se não for definido um texto, será assumido o atributo data-message do input)
          * @return {void}
          */
-        generateTooltip: function (form, input, text) {
-            var currentInput = jQ(input),
-                message = text || currentInput.data('message') || '',
-                className = 'z_tooltip',
-                inputId = currentInput.attr('id'),
-                offsets = currentInput.offset(),
-                formOffsets = jQ(form).offset(),
-                finalPosition = [offsets.left - formOffsets.left, offsets.top - formOffsets.top],
-                id = className + '_' + inputId,
-                css = 'top:' + (finalPosition[1] - 35) + 'px;left:' + (finalPosition[0] + currentInput.width() - 40) + 'px;position:absolute',
-                html = [
-                    '<div id="' + id + '" class="' + className + '" style="' + css + '">',
-                    '<span class="z_tooltip_inner">' + message + '</span>',
-                    '<span class="z_tooltip_arrow"></span></div>'
-                ].join('');
+        generateTooltip: function (input, text) {
+            var tooltip = document.createElement('div'),
+                parentNode = input.parentNode;
 
-            jQ(form).css('position', 'relative').append(html);
-            jQ(input).focus(function () {
-                jQ('#' + id).fadeOut(500);
-            });
+            tooltip.classList.add('z-tooltip');
+            tooltip.innerHTML =  [
+                '<div class="z-tooltip-wrapper">',
+                '<span class="z-tooltip-inner">' + text + '</span>',
+                '<span class="z-tooltip-arrow"></span>',
+                '</div>'
+            ].join('');
+
+            parentNode.style.position = 'relative';
+            parentNode.insertBefore(tooltip, input);
+
+            input.onfocus = function () {
+                tooltip.classList.add('hide');
+
+                setTimeout(function () {
+                    tooltip.remove();
+                }, 300);
+
+                input.onfocus = null;
+            }
         },
 
         /**
@@ -237,7 +242,7 @@
          * @return {Boolean}      Verdadeiro caso todos os campos do formulário obedeçam as regras definidas
          */
         validate : function (form) {
-            var inputList = jQ(form).find('input, select, textarea'),
+            var inputList = form.querySelectorAll('[zv-rule]'),
                 len = inputList.length,
                 rulesList,
                 rulesListLen,
@@ -251,33 +256,50 @@
                 message,
                 output = true;
 
-            jQ(form).find('.z_tooltip').remove();
+            this.removeTooltips(form);
 
             for (i = 0; i < len; i += 1) {
-                current = jQ(inputList[i]);
+                current = inputList[i];
+                rulesList = current.getAttribute('zv-rule').split('|');
+                rulesListLen = rulesList.length;
 
-                if (current.data('rule') !== undefined && current.css('display') !== 'none') {
-                    rulesList = current.data('rule').split('|');
-                    rulesListLen = rulesList.length;
+                for (x = 0; x < rulesListLen; x += 1) {
+                    currentRule = this.parseArg(rulesList[x]);
+                    rule = currentRule.rule;
 
-                    for (x = 0; x < rulesListLen; x += 1) {
-                        currentRule = this.parseArg(rulesList[x]);
-                        rule = currentRule.rule;
+                    if (rules[rule] !== undefined) {
+                        valid = rules[rule].apply(current, [currentRule.arguments]);
 
-                        if (rules[rule] !== undefined) {
-                            valid = rules[rule].apply(current[0], [currentRule.arguments]);
-
-                            if (!valid) {
-                                message = current.data('messages' + rule.charAt(0).toUpperCase() + rule.slice(1));
-                                this.generateTooltip(form, current, message);
-                                output = false;
-                            }
+                        if (!valid) {
+                            message = this.getMessage(current, rule);
+                            this.generateTooltip(current, message);
+                            output = false;
                         }
                     }
                 }
             }
 
             return output;
+        },
+
+        removeTooltips : function (form) {
+            var tooltips = form.querySelectorAll('.z-tooltip'),
+                len = tooltips.length,
+                x;
+
+            for (x = 0; x < len; x += 1) {
+                tooltips[x].remove();
+            }
+        },
+
+        getMessage : function (input, rule) {
+            var inline = input.getAttribute('zv-error-' + rule) || input.getAttribute('zv-error');
+
+            if (inline) {
+                return inline;
+            }
+
+            return messages[rule] || 'error';
         }
     };
 
@@ -294,32 +316,63 @@
     };
 
     /**
-     * Adiciona/Altera uma função de callback para ser executada apos a validação
+     * Adiciona/Altera uma função de callback para ser executada quando a validação falha
      * @param  {String}   id                    Id do formulário
-     * @param  {Function} callback              Funçào que será executada apos a validação
-     * @param  {Boolean}  callback.result       Resultado da validação
-     * @param  {Boolean}  callback.event        Evento de submit do formulário
+     * @param  {Function} callback              Função que será executada apos a validação
      * @param  {Object}   callback.formElement  Elemento do formulário que foi validado
      * @return {void}
      */
-    API.afterValidate = function (id, callback) {
+    API.onValidationFail = function (id, callback) {
         if (typeof callback === 'function') {
             callbacks[id] = callback;
         }
     };
 
+    API.setMessage = function (key, value) {
+        var k, list;
+
+        if (arguments.length === 2) {
+            messages[key] = value;
+        }
+
+        if (typeof key === 'object') {
+            list = key;
+
+            for (k in list) {
+                if (list.hasOwnProperty(k)) {
+                    messages[k] = list[k];
+                }
+            }
+        }
+    }
+
     // Aplica a validação aos formulários no evento submit
-    jQ(window.document).on('submit', 'form.validate', function (evt) {
-        var $this = jQ(this),
-            formId = $this[0].id || null,
-            result = zValidate.validate($this),
+    document.addEventListener('submit', function (evt) {
+        if (!evt.target.matches('[z-validate]')) {
+            return;
+        }
+
+        var form = evt.target,
+            result = zValidate.validate(form),
+            callbackId = form.getAttribute('zv-on-fail'),
             privateScopeAPI = {
                 tooltip: function (input, text) {
-                    zValidate.generateTooltip($this, input, text);
+                    zValidate.generateTooltip(input, text);
                 }
-            };
+            },
+            callback;
 
-        return (formId !== null && callbacks['#' + formId] !== undefined) ? callbacks['#' + formId].call(privateScopeAPI, result, evt, $this) : result;
+        if (callbackId) {
+            callback = callbacks[callbackId];
+
+            if (callback) {
+                callback.call(privateScopeAPI);
+            }
+        }
+
+        if (!result) {
+            evt.preventDefault();
+        }
     });
 
     // Public API

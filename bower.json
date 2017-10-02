@@ -1,0 +1,25 @@
+{
+  "name": "zvalidate",
+  "version": "0.0.0",
+  "homepage": "https://github.com/brunoziie/zvalidate",
+  "authors": [
+    "brunoziiê <eu@brunoziie.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "validate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^1.8.0"
+  }
+}

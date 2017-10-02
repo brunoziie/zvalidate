@@ -1,7 +1,7 @@
 {
   "name": "zValidate",
   "description": "Um simples validador de formulários",
-  "version": "0.1.23",
+  "version": "1.0.0",
   "keywords": [
     "validate",
     "form"
@@ -9,13 +9,14 @@
   "maintainers": [
     "Bruno Ziie <eu@brunoziie.com> (http://www.brunoziie.com)"
   ],
-  "dependencies": {
-    "jquery": "~1.8.0"
-  },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.1.2",
-    "grunt-contrib-cssmin": "~0.4.1"
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.11"
   },
   "licenses": [
     {

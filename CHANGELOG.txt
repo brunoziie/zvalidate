@@ -5,3 +5,8 @@
 [2013/07/15]
 - Some enhancements in the code
 - Add grunt
+
+[2017/10/02]
+- Fix tooltip generator
+- Change grunt to gulp
+- Change rules and messages attributes
