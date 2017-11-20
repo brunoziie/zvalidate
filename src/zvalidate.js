@@ -375,6 +375,10 @@
         }
     });
 
+    API.validate = function (form) {
+        return zValidate.validate(form);
+    };
+    
     // Public API
     window.zValidate = API;
 }(this, jQuery));
