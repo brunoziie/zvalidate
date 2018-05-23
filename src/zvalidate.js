@@ -379,6 +379,10 @@
         return zValidate.validate(form);
     };
     
+    API.generateTooltip = function (input, text) {
+        return zValidate.generateTooltip(input, text);
+    };
+    
     // Public API
     window.zValidate = API;
 }(this, jQuery));
